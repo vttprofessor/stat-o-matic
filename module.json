@@ -1,0 +1,39 @@
+{
+  "id": "the-professors-stat-o-matic",
+  "title": "The Professor's Stat-O-Matic",
+  "version": "1.0.0",
+  "compatibility": {
+    "minimum": "13",
+    "verified": "13"
+  },
+  "authors": [
+    {
+      "name": "The Professor",
+      "flags": {}
+    }
+  ],
+  "relationships": {
+    "systems": [
+      {
+        "id": "dnd5e",
+        "type": "system",
+        "manifest": "https://github.com/foundryvtt/dnd5e/releases/latest/download/system.json",
+        "compatibility": {
+          "minimum": "3.0.0"
+        }
+      }
+    ]
+  },
+  "esmodules": [
+    "scripts/stat-roller.js"
+  ],
+  "styles": [
+    "styles/stat-roller.css"
+  ],
+  "languages": [],
+  "packs": [],
+  "url": "",
+  "manifest": "",
+  "download": "",
+  "license": ""
+}

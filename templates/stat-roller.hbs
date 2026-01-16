@@ -1,0 +1,221 @@
+<div class="stat-roller-container">
+    <header class="stat-roller-header">
+        <h1>{{methodDescription}}</h1>
+    </header>
+    <div class="d20-divider"></div>
+
+    <div class="stat-roller-content">
+        {{#if isStart}}
+        <div class="stat-roller-stage">
+            <p>Are you ready to discover your destiny?</p>
+            <button type="button" class="roll-stats-btn" data-action="startRolling">
+                <i class="fas fa-dice-d20"></i> Start Rolling!
+            </button>
+        </div>
+        {{/if}}
+
+        {{#if isRolling}}
+        <div class="stat-roller-stage">
+            <div class="rolling-layout {{#if isInOrder}}split-view{{/if}}">
+                <div class="rolling-controls">
+                    <div class="rolling-container">
+                        {{#each pool}}
+                        <div class="stat-die-result">{{this.value}}</div>
+                        {{/each}}
+
+                        {{#if rollsRemaining}}
+                        <div class="stat-die-result active-roll" data-value="{{currentRollResult}}">
+                            {{#if currentRollResult}}{{currentRollResult}}{{else}}?{{/if}}
+                        </div>
+                        {{/if}}
+                    </div>
+
+                    {{#if isInOrder}}
+                    <p class="rolling-instruction">
+                        {{#if (eq rollsRemaining 0)}}
+                        All Stats Assigned
+                        {{else}}
+                        {{#if isAssigningInProgress}}
+                        Assigning to: <strong>{{nextStatLabel}}</strong>
+                        {{else}}
+                        Rolling for: <strong>{{nextStatLabel}}</strong>
+                        {{/if}}
+                        {{/if}}
+                    </p>
+                    {{/if}}
+                    <p>Stat {{rollsAttempted}} of 6</p>
+
+                    <button type="button" class="roll-stats-btn" data-action="rollSingle" {{#if (eq rollsRemaining
+                        0)}}disabled{{/if}}>
+                        Roll <i class="fas fa-dice-d20 ghost-icon"></i> Dice
+                    </button>
+                </div>
+
+                {{#if isInOrder}}
+                <div class="stat-target-list">
+                    <h3>Ability Score</h3>
+                    {{#each assignedSlots}}
+                    <div class="stat-row">
+                        <span class="stat-label">{{this.label}}</span>
+                        <div class="stat-drop-zone">
+                            {{#if this.value}}
+                            <div class="stat-chip" data-value="{{this.value}}">
+                                {{this.value}}
+                            </div>
+                            {{/if}}
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+                {{/if}}
+            </div>
+
+            {{#if isInOrder}}
+            <div class="action-buttons">
+                <button type="button" data-action="confirmAssignments" {{#if rollsRemaining}}disabled{{/if}}>
+                    <i class="fas fa-check"></i> Apply Stats
+                </button>
+            </div>
+            {{/if}}
+        </div>
+        {{/if}}
+
+        {{#if isPointBuy}}
+        <div class="stat-roller-stage">
+            <div class="point-buy-header">
+                <h3>Ability Points Left</h3>
+                <div class="points-remaining">
+                    <span class="points-value">{{pointsRemaining}} / 27</span>
+                </div>
+            </div>
+            <div class="point-buy-layout">
+                <div class="point-buy-container">
+                    <hr class="gold-divider">
+                    <div class="stat-target-list">
+                        {{#each assignedSlots}}
+                        <div class="stat-row">
+                            <span class="stat-label">{{this.label}}</span>
+                            <div class="point-buy-controls">
+                                <button type="button" class="pb-btn" data-action="adjustPointBuy"
+                                    data-stat="{{this.key}}" data-delta="-1" {{#if (eq this.value
+                                    8)}}disabled{{/if}}>-</button>
+                                <span class="pb-value">{{this.value}}</span>
+                                <button type="button" class="pb-btn" data-action="adjustPointBuy"
+                                    data-stat="{{this.key}}" data-delta="1" {{#if (eq this.value
+                                    15)}}disabled{{/if}}>+</button>
+                            </div>
+                        </div>
+                        {{/each}}
+                    </div>
+                </div>
+
+                <div class="point-buy-reference">
+                    <h4>Cost Reference</h4>
+                    <table class="pb-cost-table">
+                        <thead>
+                            <tr>
+                                <th>Score</th>
+                                <th>Cost</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>8</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>9</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <td>11</td>
+                                <td>3</td>
+                            </tr>
+                            <tr>
+                                <td>12</td>
+                                <td>4</td>
+                            </tr>
+                            <tr>
+                                <td>13</td>
+                                <td>5</td>
+                            </tr>
+                            <tr>
+                                <td>14</td>
+                                <td>7</td>
+                            </tr>
+                            <tr>
+                                <td>15</td>
+                                <td>9</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button type="button" data-action="confirmAssignments">
+                    <i class="fas fa-check"></i> Apply Stats
+                </button>
+            </div>
+        </div>
+        {{/if}}
+
+        {{#if isAssigning}}
+        <div class="stat-roller-stage">
+            <div class="assignment-container">
+                {{#unless isInOrder}}
+                <!-- Left: Pool of Rolled Numbers -->
+                <div class="rolled-values-pool">
+                    <h3>{{#if isStandardArray}}Number Array{{else}}Rolled Numbers{{/if}}</h3>
+                    {{#each pool}}
+                    <div class="stat-chip" draggable="true" data-index="{{this.id}}" data-value="{{this.value}}"
+                        data-origin="pool">
+                        {{this.value}}
+                    </div>
+                    {{/each}}
+
+                    {{#unless pool.length}}
+                    <p style="text-align:center; color:#555;">All assigned!</p>
+                    {{/unless}}
+                </div>
+                {{/unless}}
+
+                <!-- Right/Full: Stat Slots -->
+                <div class="stat-target-list {{#if isInOrder}}full-width{{/if}}">
+                    <h3>{{#if isStandardArray}}Assign to Ability Score{{else}}{{#if isInOrder}}Final Ability
+                        Score{{else}}Assign
+                        to Ability Score{{/if}}{{/if}}</h3>
+                    {{#each assignedSlots}}
+                    <div class="stat-row">
+                        <span class="stat-label">{{this.label}}</span>
+                        <div class="stat-drop-zone" data-stat="{{this.key}}">
+                            {{#if this.value}}
+                            <div class="stat-chip" {{#unless ../isInOrder}}draggable="true" {{/unless}}
+                                data-index="{{this.rollId}}" data-value="{{this.value}}" data-origin="{{this.key}}">
+                                {{this.value}}
+                            </div>
+                            {{/if}}
+                        </div>
+                        {{#unless this.value}}
+                        {{#unless ../isInOrder}}
+                        <span class="ghost-text">Drag & Drop</span>
+                        {{/unless}}
+                        {{/unless}}
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button type="button" data-action="confirmAssignments" {{#unless canConfirm}}disabled{{/unless}}>
+                    <i class="fas fa-check"></i> Apply Stats
+                </button>
+            </div>
+        </div>
+        {{/if}}
+    </div>
+</div>
