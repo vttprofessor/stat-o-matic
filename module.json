@@ -1,6 +1,6 @@
 {
-  "id": "the-professors-stat-o-matic",
-  "title": "The Professor's Stat-O-Matic",
+  "id": "stat-o-matic",
+  "title": "Stat-O-Matic",
   "version": "1.0.0",
   "compatibility": {
     "minimum": "13",
@@ -32,5 +32,5 @@
   ],
   "url": "https://www.patreon.com/VTTProfessor",
   "manifest": "https://github.com/vttprofessor/stat-o-matic/releases/download/1.0.0/module.json",
-  "download": "https://github.com/vttprofessor/stat-o-matic/releases/download/1.0.0/the-professors-stat-o-matic.zip"
+  "download": "https://github.com/vttprofessor/stat-o-matic/releases/download/1.0.0/stat-o-matic.zip"
 }
