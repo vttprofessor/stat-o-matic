@@ -30,10 +30,7 @@
   "styles": [
     "styles/stat-roller.css"
   ],
-  "languages": [],
-  "packs": [],
-  "url": "",
-  "manifest": "",
-  "download": "",
-  "license": ""
+  "url": "https://www.patreon.com/VTTProfessor",
+  "manifest": "https://github.com/vttprofessor/stat-o-matic/releases/download/1.0.0/module.json",
+  "download": "https://github.com/vttprofessor/stat-o-matic/releases/download/1.0.0/the-professors-stat-o-matic.zip"
 }
