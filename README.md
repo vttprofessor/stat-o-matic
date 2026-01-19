@@ -12,3 +12,5 @@ Standard Array: Skip the rolling! Everyone starts with the same balanced set of 
 Point Buy: The ultimate way to customize. You get a pool of points to "buy" your scores, letting you perfectly dial in your character's strengths and weaknesses without letting the dice decide. 
 
 The DM picks the method best suited for their campaign in the settings. 
+
+Note: d20 icon created by Delapouite: https://game-icons.net/1x1/delapouite/dice-twenty-faces-twenty.html
